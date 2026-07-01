@@ -127,6 +127,35 @@ You can honestly describe this project as:
   O(n log n) candidate ranking.
 - Added PDF parsing (Apache PDFBox) and CSV/PDF report export features.
 
+- ## 📸 Application Screenshots
+
+### Login Screen
+
+![Login](screenshots/login.png)
+
+### Dashboard
+
+![Dashboard](screenshots/dashboard.png)
+
+### Resume Evaluation
+
+![Resume Evaluation](screenshots/result.png)
+
+---
+
+## 🚀 Future Enhancements
+
+- AI-powered Resume Analysis using NLP
+- ATS Compatibility Checker
+- Resume Keyword Suggestions
+- AI-based Interview Question Generator
+- Recruiter Dashboard
+- Skill Gap Analysis
+- Resume Feedback using LLMs
+- Cloud Deployment (AWS)
+- Email Notification System
+- REST API Integration
+
 ## Troubleshooting
 
 - **"Could not connect to MySQL"** on launch → MySQL isn't running, or
