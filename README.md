@@ -4,117 +4,47 @@ A Java Swing desktop app that scores and ranks resumes against a job's
 required skills, with login, MySQL persistence, evaluation history, and
 CSV/PDF export.
 
-## What changed from the original version
 
-| Before | Now |
-|---|---|
-| Single 600-line `.java` file | Layered packages: `model`, `db`, `util`, `ui` |
-| Data saved to `resumes.txt` | Data saved in a normalized MySQL database |
-| No login | Login / Register screen (passwords hashed, never stored in plain text) |
-| No history | Every "Evaluate & Rank" run is saved to an `evaluations` table |
-| No export | Export ranked results to CSV (Excel) or a PDF report |
+## ✨ Key Features
 
-The core algorithm (DAA part of the project) is untouched: skill matching
-still uses a `HashSet` for O(1) lookups, and ranking still uses `List.sort`
-(O(n log n)).
+- 🔐 User authentication with secure password hashing
+- 📄 Resume parsing using Apache PDFBox
+- 🎯 Skill-based resume matching and candidate scoring
+- 📊 Candidate ranking using efficient sorting algorithms
+- 🗄️ MySQL database integration through JDBC
+- 📝 Evaluation history tracking
+- 📑 CSV and PDF report generation
+- 🖥️ Java Swing desktop interface
 
-## Project structure
+## 🏗️ Project Structure
 
-```
-PBL_DAA_v2/
-├── src/com/daa/resumescorer/
-│   ├── Main.java                  entry point
-│   ├── model/                     Candidate, User (plain data objects)
-│   ├── db/                        DBConnection, CandidateDAO, SkillDAO,
-│   │                              UserDAO, EvaluationDAO  (all JDBC code)
-│   ├── util/                      PdfParser, PasswordUtil, ExportUtil
-│   └── ui/                        LoginDialog, HistoryDialog, SmartResumeScorer
-├── sql/schema.sql                 run this once to create the database
-├── db.properties                  your MySQL url / username / password
-├── lib/                           pdfbox-app-3.0.7.jar (mysql connector goes here too)
-├── compile.sh / compile.bat
-└── run.sh / run.bat
-```
+```text
+src/com/daa/resumescorer/
+├── model/      Data models
+├── db/         JDBC & database access
+├── util/       PDF parsing, authentication & exports
+├── ui/         Swing user interface
+└── Main.java   Application entry point
 
-## 1. Install MySQL (since you said it isn't set up yet)
+sql/            Database schema
+lib/            External libraries
 
-**Windows:** download the MySQL Installer from
-https://dev.mysql.com/downloads/installer/ and run it (pick "Server only" —
-you don't need Workbench unless you want a GUI). During setup it will ask
-you to set a **root password** — remember it, you'll need it below.
 
-**macOS:** `brew install mysql` then `brew services start mysql`
+## ⚙️ Setup & Installation
 
-**Linux (Debian/Ubuntu):**
-```
-sudo apt update
-sudo apt install mysql-server
-sudo service mysql start
-sudo mysql_secure_installation   # sets a root password
-```
-
-Check it's running:
-```
-mysql -u root -p
-```
-If that opens a `mysql>` prompt, you're good — type `exit` to leave.
-
-## 2. Create the database and tables
-
-From a terminal, in this project folder:
-```
-mysql -u root -p < sql/schema.sql
-```
-This creates the `resume_scorer_db` database with 5 tables: `users`,
-`candidates`, `skills`, `candidate_skills` (many-to-many bridge), and
-`evaluations` (history log).
-
-## 3. Download the MySQL JDBC driver
-
-Download **mysql-connector-j** (the `.jar`, "Platform Independent" ZIP) from:
-https://dev.mysql.com/downloads/connector/j/
-
-Unzip it and copy `mysql-connector-j-9.x.x.jar` into this project's `lib/`
-folder, next to `pdfbox-app-3.0.7.jar`. The `lib/` folder should then have
-both jars.
-
-## 4. Configure your password
-
-Open `db.properties` and replace `YOUR_MYSQL_PASSWORD_HERE` with your
-actual MySQL root password (the one you set in step 1):
-```
-db.url=jdbc:mysql://localhost:3306/resume_scorer_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-db.user=root
-db.password=your_actual_password
-```
-
-## 5. Compile and run
-
-**Windows:**
-```
-compile.bat
-run.bat
-```
-
-**macOS / Linux:**
-```
-./compile.sh
-./run.sh
-```
+This project requires Java JDK 17+, MySQL 8+, Apache PDFBox, and MySQL Connector/J. First, create the database by running `mysql -u root -p < sql/schema.sql>`. Then open `db.properties` and configure your MySQL credentials using `db.url=jdbc:mysql://localhost:3306/resume_scorer_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC`, `db.user=root`, and `db.password=your_password`. Place the MySQL Connector/J `.jar` file inside the project's `lib/` directory along with `pdfbox-app-3.0.7.jar`. On Windows, compile and run the application using `compile.bat` followed by `run.bat`; on macOS/Linux, use `./compile.sh` followed by `./run.sh`. On first launch, create a new account and log in to start using the application.
 
 On first launch you'll see a login screen — click **"Create new account"**
 to register a username/password, then log in.
 
-## Using the app
+## 🧑‍💻 How It Works
 
-1. **Add Resume Manually** or **Browse PDF File** to add a candidate — saved
-   straight to MySQL.
-2. Type the job's required skills, click **Evaluate and Rank** — scores are
-   computed and the run is logged to the `evaluations` table.
-3. Select a row and click **Selected Candidate's History** to see every past
-   evaluation for that person.
-4. Click **Export** to save the ranked list as a CSV (opens in Excel) or a
-   PDF report.
+1. Create an account and log in.
+2. Add a candidate manually or upload a resume PDF.
+3. Enter the required skills for the target job.
+4. Click **Evaluate and Rank** to score and rank candidates based on skill matching.
+5. View evaluation history for previously evaluated candidates.
+6. Export ranked results as CSV or PDF reports.
 
 ## Talking about this on your resume
 
@@ -145,23 +75,20 @@ You can honestly describe this project as:
 
 ## 🚀 Future Enhancements
 
-- AI-powered Resume Analysis using NLP
-- ATS Compatibility Checker
-- Resume Keyword Suggestions
-- AI-based Interview Question Generator
-- Recruiter Dashboard
-- Skill Gap Analysis
-- Resume Feedback using LLMs
-- Cloud Deployment (AWS)
-- Email Notification System
-- REST API Integration
+- AI-powered resume analysis using NLP
+- ATS compatibility checking
+- Resume keyword recommendations
+- Skill gap analysis
+- AI-generated interview questions
+- Recruiter dashboard
+- LLM-based resume feedback
+- REST API integration
+- Cloud deployment
+- Email notification system
 
-## Troubleshooting
 
-- **"Could not connect to MySQL"** on launch → MySQL isn't running, or
-  `db.properties` has the wrong password. Run `mysql -u root -p` to confirm
-  your credentials work first.
-- **`ClassNotFoundException: com.mysql.cj.jdbc.Driver`** → the connector jar
-  isn't in `lib/`, or you compiled/ran without `lib/*` on the classpath.
-- **Login screen never appears / app exits immediately** → check the
-  terminal output, it will print the exact JDBC error.
+## 🛠️ Troubleshooting
+
+- **MySQL connection error:** Make sure MySQL is running and the credentials in `db.properties` are correct.
+- **JDBC driver not found:** Make sure the MySQL Connector/J `.jar` is present in the `lib/` directory and included in the classpath.
+- **Application exits on startup:** Check the terminal output for JDBC or configuration errors.
