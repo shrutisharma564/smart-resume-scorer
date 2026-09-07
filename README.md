@@ -26,16 +26,15 @@ src/com/daa/resumescorer/
 ├── ui/         Swing user interface
 └── Main.java   Application entry point
 
+
+```md
 sql/            Database schema
 lib/            External libraries
 
 
 ## ⚙️ Setup & Installation
 
-This project requires Java JDK 17+, MySQL 8+, Apache PDFBox, and MySQL Connector/J. First, create the database by running `mysql -u root -p < sql/schema.sql>`. Then open `db.properties` and configure your MySQL credentials using `db.url=jdbc:mysql://localhost:3306/resume_scorer_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC`, `db.user=root`, and `db.password=your_password`. Place the MySQL Connector/J `.jar` file inside the project's `lib/` directory along with `pdfbox-app-3.0.7.jar`. On Windows, compile and run the application using `compile.bat` followed by `run.bat`; on macOS/Linux, use `./compile.sh` followed by `./run.sh`. On first launch, create a new account and log in to start using the application.
-
-On first launch you'll see a login screen — click **"Create new account"**
-to register a username/password, then log in.
+This project requires Java JDK 17+, MySQL 8+, Apache PDFBox, and MySQL Connector/J. Create the database using `mysql -u root -p < sql/schema.sql`. Then configure your MySQL credentials in `db.properties` using the provided database URL, username, and password. Place the MySQL Connector/J `.jar` file inside the project's `lib/` directory along with `pdfbox-app-3.0.7.jar`. On Windows, compile and run the application using `compile.bat` followed by `run.bat`; on macOS/Linux, use `./compile.sh` followed by `./run.sh`. On first launch, create a new account and log in to start using the application.
 
 ## 🧑‍💻 How It Works
 
@@ -46,16 +45,7 @@ to register a username/password, then log in.
 5. View evaluation history for previously evaluated candidates.
 6. Export ranked results as CSV or PDF reports.
 
-## Talking about this on your resume
 
-You can honestly describe this project as:
-- Built a Java Swing desktop application with a normalized MySQL schema
-  (3NF, many-to-many skill mapping) accessed via JDBC, including prepared
-  statements and transaction handling.
-- Implemented user authentication with salted password hashing.
-- Used hash-based set lookups for O(1) skill matching and `List.sort` for
-  O(n log n) candidate ranking.
-- Added PDF parsing (Apache PDFBox) and CSV/PDF report export features.
 
 - ## 📸 Application Screenshots
 
